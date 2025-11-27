@@ -6,21 +6,21 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useChat } from "@ai-sdk/react";
-import { ArrowUp, Eraser, Loader2, Plus, PlusIcon, Square } from "lucide-react";
+import { ArrowUp, Loader2, Plus, Square } from "lucide-react";
 import { MessageWall } from "@/components/messages/message-wall";
-import { ChatHeader } from "@/app/parts/chat-header";
-import { ChatHeaderBlock } from "@/app/parts/chat-header";
+import { ChatHeader, ChatHeaderBlock } from "@/app/parts/chat-header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UIMessage } from "ai";
 import { useEffect, useState, useRef } from "react";
-import { AI_NAME, CLEAR_CHAT_TEXT, OWNER_NAME, WELCOME_MESSAGE } from "@/config";
+import {
+  AI_NAME,
+  CLEAR_CHAT_TEXT,
+  OWNER_NAME,
+  WELCOME_MESSAGE,
+} from "@/config";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -31,15 +31,18 @@ const formSchema = z.object({
     .max(2000, "Message must be at most 2000 characters."),
 });
 
-const STORAGE_KEY = 'chat-messages';
+const STORAGE_KEY = "chat-messages";
 
 type StorageData = {
   messages: UIMessage[];
   durations: Record<string, number>;
 };
 
-const loadMessagesFromStorage = (): { messages: UIMessage[]; durations: Record<string, number> } => {
-  if (typeof window === 'undefined') return { messages: [], durations: {} };
+const loadMessagesFromStorage = (): {
+  messages: UIMessage[];
+  durations: Record<string, number>;
+} => {
+  if (typeof window === "undefined") return { messages: [], durations: {} };
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) return { messages: [], durations: {} };
@@ -50,18 +53,21 @@ const loadMessagesFromStorage = (): { messages: UIMessage[]; durations: Record<s
       durations: parsed.durations || {},
     };
   } catch (error) {
-    console.error('Failed to load messages from localStorage:', error);
+    console.error("Failed to load messages from localStorage:", error);
     return { messages: [], durations: {} };
   }
 };
 
-const saveMessagesToStorage = (messages: UIMessage[], durations: Record<string, number>) => {
-  if (typeof window === 'undefined') return;
+const saveMessagesToStorage = (
+  messages: UIMessage[],
+  durations: Record<string, number>,
+) => {
+  if (typeof window === "undefined") return;
   try {
     const data: StorageData = { messages, durations };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (error) {
-    console.error('Failed to save messages to localStorage:', error);
+    console.error("Failed to save messages to localStorage:", error);
   }
 };
 
@@ -70,7 +76,10 @@ export default function Chat() {
   const [durations, setDurations] = useState<Record<string, number>>({});
   const welcomeMessageShownRef = useRef<boolean>(false);
 
-  const stored = typeof window !== 'undefined' ? loadMessagesFromStorage() : { messages: [], durations: {} };
+  const stored =
+    typeof window !== "undefined"
+      ? loadMessagesFromStorage()
+      : { messages: [], durations: {} };
   const [initialMessages] = useState<UIMessage[]>(stored.messages);
 
   const { messages, sendMessage, status, stop, setMessages } = useChat({
@@ -98,7 +107,11 @@ export default function Chat() {
   };
 
   useEffect(() => {
-    if (isClient && initialMessages.length === 0 && !welcomeMessageShownRef.current) {
+    if (
+      isClient &&
+      initialMessages.length === 0 &&
+      !welcomeMessageShownRef.current
+    ) {
       const welcomeMessage: UIMessage = {
         id: `welcome-${Date.now()}`,
         role: "assistant",
@@ -137,28 +150,40 @@ export default function Chat() {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center font-sans dark:bg-black">
-      <main className="w-full dark:bg-black h-screen relative">
-        <div className="fixed top-0 left-0 right-0 z-50 bg-linear-to-b from-background via-background/50 to-transparent dark:bg-black overflow-visible pb-16">
+    <div className="flex h-screen items-center justify-center font-sans bg-gradient-to-b from-amber-50 via-orange-50 to-rose-50">
+      <main className="w-full h-screen relative">
+        {/* Top header */}
+        <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-amber-50/95 via-amber-50/70 to-transparent overflow-visible pb-16">
           <div className="relative overflow-visible">
             <ChatHeader>
               <ChatHeaderBlock />
-              <ChatHeaderBlock className="justify-center items-center">
-                <Avatar
-                  className="size-8 ring-1 ring-primary"
-                >
+              <ChatHeaderBlock className="justify-center items-center gap-3">
+                <Avatar className="size-8 ring-2 ring-amber-400 bg-white">
                   <AvatarImage src="/logo.png" />
                   <AvatarFallback>
-                    <Image src="/logo.png" alt="Logo" width={36} height={36} />
+                    <Image
+                      src="/logo.png"
+                      alt="Logo"
+                      width={36}
+                      height={36}
+                    />
                   </AvatarFallback>
                 </Avatar>
-                <p className="tracking-tight">Chat with {AI_NAME}</p>
+                <div className="flex flex-col">
+                  <p className="tracking-tight text-sm font-semibold text-amber-900">
+                    Chat with {AI_NAME}
+                  </p>
+                  <p className="text-[11px] text-amber-700">
+                    Ask for recipes, substitutions, or dish ideas across
+                    cuisines.
+                  </p>
+                </div>
               </ChatHeaderBlock>
               <ChatHeaderBlock className="justify-end">
                 <Button
                   variant="outline"
                   size="sm"
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-white/80 border-amber-200 hover:bg-amber-50"
                   onClick={clearChat}
                 >
                   <Plus className="size-4" />
@@ -168,11 +193,18 @@ export default function Chat() {
             </ChatHeader>
           </div>
         </div>
+
+        {/* Messages area */}
         <div className="h-screen overflow-y-auto px-5 py-4 w-full pt-[88px] pb-[150px]">
           <div className="flex flex-col items-center justify-end min-h-full">
             {isClient ? (
               <>
-                <MessageWall messages={messages} status={status} durations={durations} onDurationChange={handleDurationChange} />
+                <MessageWall
+                  messages={messages}
+                  status={status}
+                  durations={durations}
+                  onDurationChange={handleDurationChange}
+                />
                 {status === "submitted" && (
                   <div className="flex justify-start max-w-3xl w-full">
                     <Loader2 className="size-4 animate-spin text-muted-foreground" />
@@ -186,7 +218,9 @@ export default function Chat() {
             )}
           </div>
         </div>
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-linear-to-t from-background via-background/50 to-transparent dark:bg-black overflow-visible pt-13">
+
+        {/* Bottom input bar */}
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-amber-50/95 via-amber-50/70 to-transparent overflow-visible pt-13">
           <div className="w-full px-5 pt-5 pb-1 items-center flex justify-center relative overflow-visible">
             <div className="message-fade-overlay" />
             <div className="max-w-3xl w-full">
@@ -197,7 +231,10 @@ export default function Chat() {
                     control={form.control}
                     render={({ field, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor="chat-form-message" className="sr-only">
+                        <FieldLabel
+                          htmlFor="chat-form-message"
+                          className="sr-only"
+                        >
                           Message
                         </FieldLabel>
                         <div className="relative h-13">
@@ -205,7 +242,7 @@ export default function Chat() {
                             {...field}
                             id="chat-form-message"
                             className="h-15 pr-15 pl-5 bg-card rounded-[20px]"
-                            placeholder="Type your message here..."
+                            placeholder='Type your message here… e.g. "Suggest a quick Indian breakfast with oats"'
                             disabled={status === "streaming"}
                             aria-invalid={fieldState.invalid}
                             autoComplete="off"
@@ -218,17 +255,17 @@ export default function Chat() {
                           />
                           {(status == "ready" || status == "error") && (
                             <Button
-                              className="absolute right-3 top-3 rounded-full"
+                              className="absolute right-3 top-3 rounded-full bg-amber-500 hover:bg-amber-600 text-white"
                               type="submit"
                               disabled={!field.value.trim()}
                               size="icon"
                             >
-                              <ArrowUp className="size-4" />
+                            <ArrowUp className="size-4" />
                             </Button>
                           )}
                           {(status == "streaming" || status == "submitted") && (
                             <Button
-                              className="absolute right-2 top-2 rounded-full"
+                              className="absolute right-2 top-2 rounded-full bg-amber-400 hover:bg-amber-500 text-white"
                               size="icon"
                               onClick={() => {
                                 stop();
@@ -246,10 +283,18 @@ export default function Chat() {
             </div>
           </div>
           <div className="w-full px-5 py-3 items-center flex justify-center text-xs text-muted-foreground">
-            © {new Date().getFullYear()} {OWNER_NAME}&nbsp;<Link href="/terms" className="underline">Terms of Use</Link>&nbsp;Powered by&nbsp;<Link href="https://ringel.ai/" className="underline">Ringel.AI</Link>
+            © {new Date().getFullYear()} {OWNER_NAME}&nbsp;
+            <Link href="/terms" className="underline">
+              Terms of Use
+            </Link>
+            &nbsp;Powered by&nbsp;
+            <Link href="https://ringel.ai/" className="underline">
+              Ringel.AI
+            </Link>
           </div>
         </div>
       </main>
-    </div >
+    </div>
   );
 }
+
