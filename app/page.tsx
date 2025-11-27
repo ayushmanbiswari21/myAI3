@@ -78,7 +78,8 @@ export default function Chat() {
 
   // 🔊 audio recording state
   const [isRecording, setIsRecording] = useState(false);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  // use `any` so TypeScript doesn’t complain about SpeechRecognition type
+  const recognitionRef = useRef<any>(null);
 
   const stored =
     typeof window !== "undefined"
@@ -99,8 +100,7 @@ export default function Chat() {
       (window as any).webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
-      // Browser doesn’t support voice input – we just quietly ignore
-      recognitionRef.current = null;
+      recognitionRef.current = null; // voice not supported
       return;
     }
 
@@ -199,7 +199,7 @@ export default function Chat() {
         recognition.start();
         setIsRecording(true);
 
-        recognition.onresult = (event: SpeechRecognitionEvent) => {
+        recognition.onresult = (event: any) => {
           const transcript = event.results[0][0].transcript;
           const current = form.getValues("message") || "";
           const space = current && !current.endsWith(" ") ? " " : "";
