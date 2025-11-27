@@ -353,15 +353,11 @@ export default function Chat() {
                           <Input
                             {...field}
                             id="chat-form-message"
-                            className="h-15 pr-20 pl-5 rounded-[20px] bg-white/90 border border-amber-100 shadow-sm"
-                            placeholder='Type your message here… e.g. "Suggest a quick Indian breakfast with oats"'
-                            disabled={status === "streaming"}
+                            className="h-15 pr-20 pl-5 rounded-[20px] bg-input-box shadow-md text-white"
+                            placeholder='Type your message here…'
+                           disabled={status === "streaming"}
                             aria-invalid={fieldState.invalid}
-                            autoComplete="off"
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter" && !e.shiftKey) {
-                                e.preventDefault();
-                                form.handleSubmit(onSubmit)();
+                        
                               }
                             }}
                           />
@@ -369,7 +365,7 @@ export default function Chat() {
                           {/* 🎙 Mic button (audio input) */}
                           <Button
                             type="button"
-                            className="absolute right-11 top-3 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900"
+                            className="absolute right-11 top-3 rounded-full btn-mic"
                             size="icon"
                             onClick={handleMicClick}
                           >
@@ -383,8 +379,8 @@ export default function Chat() {
                           {/* Send / Stop buttons */}
                           {(status === "ready" || status === "error") && (
                             <Button
-                              className="absolute right-3 top-3 rounded-full bg-amber-500 hover:bg-amber-600 text-white"
-                              type="submit"
+                              className="absolute right-3 top-3 rounded-full btn-send"
+                              type="button"
                               disabled={!field.value.trim()}
                               size="icon"
                             >
@@ -393,8 +389,8 @@ export default function Chat() {
                           )}
                           {(status === "streaming" || status === "submitted") && (
                             <Button
-                              className="absolute right-3 top-3 rounded-full bg-amber-400 hover:bg-amber-500 text-white"
-                              size="icon"
+                              className="absolute right-3 top-3 rounded-full btn-send"
+                          
                               type="button"
                               onClick={() => {
                                 stop();
