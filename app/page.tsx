@@ -6,21 +6,21 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useChat } from "@ai-sdk/react";
 import { ArrowUp, Loader2, Plus, Square } from "lucide-react";
 import { MessageWall } from "@/components/messages/message-wall";
-import { ChatHeader } from "@/app/parts/chat-header";
-import { ChatHeaderBlock } from "@/app/parts/chat-header";
+import { ChatHeader, ChatHeaderBlock } from "@/app/parts/chat-header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UIMessage } from "ai";
 import { useEffect, useState, useRef } from "react";
-import { AI_NAME, CLEAR_CHAT_TEXT, OWNER_NAME, WELCOME_MESSAGE } from "@/config";
+import {
+  AI_NAME,
+  CLEAR_CHAT_TEXT,
+  OWNER_NAME,
+  WELCOME_MESSAGE,
+} from "@/config";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -67,7 +67,7 @@ const saveMessagesToStorage = (
     const data: StorageData = { messages, durations };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (error) {
-    console.error("Failed to save messages from localStorage:", error);
+    console.error("Failed to save messages to localStorage:", error);
   }
 };
 
@@ -152,8 +152,8 @@ export default function Chat() {
   return (
     <div className="flex h-screen items-center justify-center font-sans bg-gradient-to-b from-amber-50 via-orange-50 to-rose-50">
       <main className="w-full h-screen relative">
-        {/* Top header bar */}
-        <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-amber-50/95 via-amber-50/75 to-transparent overflow-visible pb-16">
+        {/* Top header */}
+        <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-amber-50/95 via-amber-50/70 to-transparent overflow-visible pb-16">
           <div className="relative overflow-visible">
             <ChatHeader>
               <ChatHeaderBlock />
@@ -260,7 +260,7 @@ export default function Chat() {
                               disabled={!field.value.trim()}
                               size="icon"
                             >
-                              <ArrowUp className="size-4" />
+                            <ArrowUp className="size-4" />
                             </Button>
                           )}
                           {(status == "streaming" || status == "submitted") && (
@@ -297,3 +297,4 @@ export default function Chat() {
     </div>
   );
 }
+
