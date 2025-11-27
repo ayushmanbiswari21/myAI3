@@ -217,4 +217,51 @@ textarea {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 }
 
+/* --- Food Chatbot UI enhancements --- */
+
+@keyframes card-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-appear {
+  animation: card-appear 0.35s ease-out;
+}
+
+@keyframes float-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.float-in {
+  animation: float-in 0.35s ease-out;
+}
+
+/* Quick prompt chips hover effect */
+.quick-chip {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.quick-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.18);
+  background-color: #fed7aa;
+}
+
+
 
