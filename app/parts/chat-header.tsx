@@ -9,7 +9,7 @@ type ChatHeaderProps = {
 export const ChatHeader = ({ children }: ChatHeaderProps) => {
   return (
     <header className="w-full flex justify-center pt-6 pb-4">
-      <div className="max-w-3xl w-full rounded-3xl bg-white/80 border border-amber-200 shadow-sm px-4 py-3 flex items-center gap-3 backdrop-blur">
+      <div className="max-w-3xl w-full rounded-3xl bg-amber-300/95 border border-amber-700 shadow-md px-4 py-3 flex items-center gap-3 text-black">
         {children}
       </div>
     </header>
