@@ -1,3 +1,6 @@
+npm install jspdf
+
+
 {
   "name": "my-ai-3",
   "version": "0.1.0",
