@@ -329,5 +329,14 @@ input::placeholder {
   background-color: #fed7aa;
 }
 
+.quick-chip {
+  color: #000 !important;
+}
+
+input, textarea {
+  color: #000 !important;
+}
+
+
 
 
