@@ -12,7 +12,7 @@ import { useChat } from "@ai-sdk/react";
 import { ArrowUp, Loader2, Plus, Square, Mic } from "lucide-react";
 import { MessageWall } from "@/components/messages/message-wall";
 import { ChatHeader, ChatHeaderBlock } from "@/app/parts/chat-header";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { UIMessage } from "ai";
 import { useEffect, useState, useRef } from "react";
 import {
@@ -21,7 +21,6 @@ import {
   OWNER_NAME,
   WELCOME_MESSAGE,
 } from "@/config";
-import Image from "next/image";
 import Link from "next/link";
 
 // ---------- Form schema ----------
@@ -198,7 +197,7 @@ export default function Chat() {
 
   function clearChat() {
     const newMessages: UIMessage[] = [];
-    const newDurations: Record<string, number> = {}; // properly typed
+    const newDurations: Record<string, number> = {};
     setMessages(newMessages);
     setDurations(newDurations);
     saveMessagesToStorage(newMessages, newDurations);
@@ -214,17 +213,15 @@ export default function Chat() {
             <ChatHeader>
               <ChatHeaderBlock />
               <ChatHeaderBlock className="justify-center items-center gap-3">
-                <Avatar className="size-8 ring-2 ring-red-300 bg-sky-900">
-                  <AvatarImage src="/logo.png" />
-                  <AvatarFallback>
-                    <Image
-                      src="/logo.png"
-                      alt="Logo"
-                      width={36}
-                      height={36}
-                    />
-                  </AvatarFallback>
+                {/* Bigger circular image inside header */}
+                <Avatar className="h-16 w-16 rounded-full ring-2 ring-red-300 bg-sky-900 overflow-hidden shrink-0">
+                  <AvatarImage
+                    src="/logo.png"
+                    alt="Food Recipe ChatBot Logo"
+                    className="object-cover"
+                  />
                 </Avatar>
+
                 <div className="flex flex-col">
                   <p className="tracking-tight text-sm font-semibold text-white">
                     Chat with {AI_NAME}
@@ -279,7 +276,6 @@ export default function Chat() {
             {/* Chat area */}
             <section className="flex-1 flex flex-col justify-end">
               <div className="rounded-3xl bg-red-700/90 border border-red-900 shadow-lg px-4 py-4 float-in text-white">
-
                 <div className="flex flex-col items-center justify-end min-h-[260px]">
                   {isClient ? (
                     <>
@@ -417,3 +413,4 @@ export default function Chat() {
     </div>
   );
 }
+
