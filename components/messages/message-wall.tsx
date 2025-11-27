@@ -29,7 +29,6 @@ export function MessageWall({
   return (
     <div className="relative max-w-3xl w-full">
       <div className="relative flex flex-col gap-4">
-
         {messages.map((message, index) => {
           const isLastMessage = index === messages.length - 1;
           return (
@@ -37,21 +36,13 @@ export function MessageWall({
               {message.role === "user" ? (
                 <UserMessage message={message} />
               ) : (
-                <div className="flex flex-col gap-1">
-                  <AssistantMessage
-                    message={message}
-                    status={status}
-                    isLastMessage={isLastMessage}
-                    durations={durations}
-                    onDurationChange={onDurationChange}
-                  />
-
-                  {/* ✨ Disclaimer Under Every Assistant Message */}
-                  <p className="text-[10px] text-gray-300 italic ml-3">
-                    ⚠️ Recipes & suggestions are AI-generated. Please double-check ingredients,
-                    allergens & cooking times.
-                  </p>
-                </div>
+                <AssistantMessage
+                  message={message}
+                  status={status}
+                  isLastMessage={isLastMessage}
+                  durations={durations}
+                  onDurationChange={onDurationChange}
+                />
               )}
             </div>
           );
