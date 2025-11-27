@@ -124,3 +124,23 @@
     @apply bg-card text-card-foreground px-2 py-1 rounded-full hover:underline hover:scale-105 transition-all duration-100 !text-foreground !no-underline border-input border;
   }
 }
+
+/* ===== Food chatbot theme overrides ===== */
+
+body {
+  /* Soft warm gradient: cream → light orange → light pink */
+  background: linear-gradient(to bottom, #fff7ed, #ffedd5, #fee2e2);
+}
+
+/* Optional: center the main chat content on wide screens */
+main {
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+/* Make the bottom chat input area feel lighter if it uses a plain white bg */
+input,
+textarea {
+  background-color: transparent;
+}
+
