@@ -272,7 +272,8 @@ export default function Chat() {
         <div className="h-screen overflow-y-auto px-5 py-4 w-full pt-[110px] pb-[170px]">
           <div className="max-w-3xl mx-auto flex flex-col gap-4 min-h-full">
             {/* Intro panel with quick prompts */}
-            <section className="card-appear rounded-3xl bg-white/80 border border-amber-100 shadow-sm px-5 py-4 text-sm text-amber-900">
+            <section className="card-appear rounded-3xl bg-chat-card border shadow-xl px-5 py-4 text-sm">
+
               <p className="font-medium text-amber-900">
                 🍳 What can I help you cook today?
               </p>
@@ -296,7 +297,8 @@ export default function Chat() {
 
             {/* Chat area */}
             <section className="flex-1 flex flex-col justify-end">
-              <div className="rounded-3xl bg-white/85 border border-amber-100 shadow-sm px-4 py-4 float-in">
+              <div className="rounded-3xl bg-chat-card border shadow-xl px-4 py-4 float-in">
+
                 <div className="flex flex-col items-center justify-end min-h-[260px] gap-3">
                   {isClient ? (
                     <>
