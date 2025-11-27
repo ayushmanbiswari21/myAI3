@@ -135,6 +135,15 @@ export default function Chat() {
     },
   });
 
+  // Quick suggestion prompts shown under the header
+  const quickPrompts = [
+    "Suggest a quick Indian breakfast with oats",
+    "Give me a beginner-friendly Italian pasta dinner",
+    "Plan a 3-dish North Indian thali for 2 people",
+    "Healthy vegetarian lunchbox idea",
+    "Mexican dinner with chicken in under 30 minutes",
+  ];
+
   function onSubmit(data: z.infer<typeof formSchema>) {
     sendMessage({ text: data.message });
     form.reset();
@@ -194,28 +203,58 @@ export default function Chat() {
           </div>
         </div>
 
-        {/* Messages area */}
-        <div className="h-screen overflow-y-auto px-5 py-4 w-full pt-[88px] pb-[150px]">
-          <div className="flex flex-col items-center justify-end min-h-full">
-            {isClient ? (
-              <>
-                <MessageWall
-                  messages={messages}
-                  status={status}
-                  durations={durations}
-                  onDurationChange={handleDurationChange}
-                />
-                {status === "submitted" && (
-                  <div className="flex justify-start max-w-3xl w-full">
-                    <Loader2 className="size-4 animate-spin text-muted-foreground" />
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="flex justify-center max-w-2xl w-full">
-                <Loader2 className="size-4 animate-spin text-muted-foreground" />
+        {/* Main content: intro panel + chat panel */}
+        <div className="h-screen overflow-y-auto px-5 py-4 w-full pt-[110px] pb-[170px]">
+          <div className="max-w-3xl mx-auto flex flex-col gap-4 min-h-full">
+            {/* Intro panel with quick prompts */}
+            <section className="card-appear rounded-3xl bg-white/80 border border-amber-100 shadow-sm px-5 py-4 text-sm text-amber-900">
+              <p className="font-medium text-amber-900">
+                🍳 What can I help you cook today?
+              </p>
+              <p className="mt-1 text-[13px] text-amber-700">
+                Ask me for full recipes, ideas with whatever you have in your
+                fridge, or tweaks for your favourite dishes.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {quickPrompts.map((prompt) => (
+                  <button
+                    key={prompt}
+                    type="button"
+                    className="quick-chip text-[11px] px-3 py-1 rounded-full bg-amber-100/80 text-amber-900 border border-amber-200"
+                    onClick={() => form.setValue("message", prompt)}
+                  >
+                    {prompt}
+                  </button>
+                ))}
               </div>
-            )}
+            </section>
+
+            {/* Chat area */}
+            <section className="flex-1 flex flex-col justify-end">
+              <div className="rounded-3xl bg-white/85 border border-amber-100 shadow-sm px-4 py-4 float-in">
+                <div className="flex flex-col items-center justify-end min-h-[260px]">
+                  {isClient ? (
+                    <>
+                      <MessageWall
+                        messages={messages}
+                        status={status}
+                        durations={durations}
+                        onDurationChange={handleDurationChange}
+                      />
+                      {status === "submitted" && (
+                        <div className="flex justify-start max-w-3xl w-full">
+                          <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="flex justify-center max-w-2xl w-full">
+                      <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </section>
           </div>
         </div>
 
@@ -241,7 +280,7 @@ export default function Chat() {
                           <Input
                             {...field}
                             id="chat-form-message"
-                            className="h-15 pr-15 pl-5 bg-card rounded-[20px]"
+                            className="h-15 pr-15 pl-5 rounded-[20px] bg-white/90 border border-amber-100 shadow-sm"
                             placeholder='Type your message here… e.g. "Suggest a quick Indian breakfast with oats"'
                             disabled={status === "streaming"}
                             aria-invalid={fieldState.invalid}
@@ -260,7 +299,7 @@ export default function Chat() {
                               disabled={!field.value.trim()}
                               size="icon"
                             >
-                            <ArrowUp className="size-4" />
+                              <ArrowUp className="size-4" />
                             </Button>
                           )}
                           {(status == "streaming" || status == "submitted") && (
@@ -297,4 +336,3 @@ export default function Chat() {
     </div>
   );
 }
-
