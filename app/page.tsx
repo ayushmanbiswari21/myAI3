@@ -198,9 +198,8 @@ export default function Chat() {
 
   function clearChat() {
     const newMessages: UIMessage[] = [];
-    const newDurations = {};
+    const newDurations: Record<string, number> = {}; // properly typed
     setMessages(newMessages);
-    // @ts-expect-error simple empty object
     setDurations(newDurations);
     saveMessagesToStorage(newMessages, newDurations);
     toast.success("Chat cleared");
