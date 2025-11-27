@@ -335,7 +335,7 @@ export default function Chat() {
                           <Input
                             {...field}
                             id="chat-form-message"
-                            className="h-15 pr-24 pl-5 rounded-[20px] bg-sky-900/80 border border-sky-500 text-sky-50 placeholder:text-sky-200/70 shadow-md"
+                            className="h-15 pr-24 pl-5 rounded-[20px] bg-sky-900/80 border border-sky-500 text-white placeholder:text-sky-200/80 shadow-md"
                             placeholder='Say or type something… e.g. "Suggest a quick Indian breakfast with oats"'
                             disabled={status === "streaming"}
                             aria-invalid={fieldState.invalid}
@@ -413,4 +413,5 @@ export default function Chat() {
     </div>
   );
 }
+
 
