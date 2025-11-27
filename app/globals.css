@@ -190,3 +190,27 @@ textarea {
   background-color: #fed7aa;
 }
 
+.card-appear {
+  animation: card-appear 0.35s ease-out;
+}
+@keyframes card-appear {
+  0% { opacity: 0; transform: translateY(5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.float-in {
+  animation: float-in 0.35s ease-out;
+}
+@keyframes float-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.quick-chip {
+  transition: all 0.2s ease-in-out;
+}
+.quick-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 199, 0, 0.3);
+}
+
