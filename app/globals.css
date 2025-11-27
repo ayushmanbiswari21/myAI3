@@ -125,24 +125,90 @@
   }
 }
 
-/* ===== Food chatbot theme overrides ===== */
+/* ===== Food chatbot theme overrides (NEW BLUE THEME) ===== */
 
 body {
-  /* Soft warm gradient: cream → light orange → light pink */
-  background: linear-gradient(to bottom, #fff7ed, #ffedd5, #fee2e2);
+  /* Calm premium gradient: light blue → deep blue */
+  background: linear-gradient(to bottom,
+    #dbeafe, /* light blue */
+    #93c5fd,
+    #1e3a8a /* deep navy blue */
+  );
+  color: white !important;
 }
 
-/* Optional: center the main chat content on wide screens */
 main {
   max-width: 960px;
   margin-inline: auto;
 }
 
-/* Make the bottom chat input area feel lighter if it uses a plain white bg */
-input,
-textarea {
-  background-color: transparent;
+/* Text Colors for contrast */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #ffffff;
 }
+
+p, li, span {
+  color: #f8fafc; /* subtle white */
+}
+
+/* Quick prompt chips */
+.quick-chip {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: white;
+}
+
+.quick-chip:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Card UI - RED BOX */
+.bg-chat-card {
+  background-color: rgba(185, 28, 28, 0.92); /* red-700 */
+  border: 2px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+/* Input area box */
+.bg-input-box {
+  background-color: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.45);
+  color: #ffffff !important;
+}
+
+/* Placeholder text visible */
+input::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+/* Send & Mic buttons */
+.btn-send {
+  background-color: #ef4444 !important; /* red-500 */
+  color: white;
+}
+
+.btn-send:hover {
+  background-color: #dc2626 !important; /* darker red */
+}
+
+.btn-mic {
+  background-color: #60a5fa !important; /* blue-400 */
+  color: white;
+}
+
+.btn-mic:hover {
+  background-color: #3b82f6 !important; /* blue-500 */
+}
+
+/* Disclaimer */
+.disclaimer {
+  font-size: 11px;
+  opacity: 0.7;
+  color: #e0f2fe;
+}
+
 
 /* --- Food Chatbot UI enhancements --- */
 
