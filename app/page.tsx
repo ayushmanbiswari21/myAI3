@@ -278,7 +278,7 @@ export default function Chat() {
 
             {/* Chat area */}
             <section className="flex-1 flex flex-col justify-end">
-              <div className="rounded-3xl bg-red-700/90 border border-red-400 text-white shadow-xl px-4 py-4 float-in">
+              <div className="rounded-3xl bg-white/85 border border-amber-100 shadow-sm px-4 py-4 float-in text-black">
                 <div className="flex flex-col items-center justify-end min-h-[260px]">
                   {isClient ? (
                     <>
