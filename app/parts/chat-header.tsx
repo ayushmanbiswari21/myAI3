@@ -1,26 +1,33 @@
 "use client";
 
-export default function ChatHeader() {
-  return (
-    <div className="w-full flex justify-center pt-6 pb-4">
-      <div className="max-w-3xl w-full bg-white/80 border border-amber-200 rounded-3xl px-4 py-3 flex items-center gap-3 shadow-sm backdrop-blur">
-        {/* Icon circle */}
-        <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center text-xl">
-          🥘
-        </div>
+import type { ReactNode } from "react";
 
-        {/* Title + subtitle */}
-        <div className="flex-1">
-          <h1 className="text-base sm:text-lg font-semibold text-amber-900">
-            Chat with Food Recipe ChatBot
-          </h1>
-          <p className="text-xs sm:text-sm text-amber-700">
-            Ask for recipes, ingredient substitutions, or dish ideas from Indian
-            and global cuisines. I’ll use your uploaded recipes to guide you.
-          </p>
-        </div>
+type ChatHeaderProps = {
+  children: ReactNode;
+};
+
+export const ChatHeader = ({ children }: ChatHeaderProps) => {
+  return (
+    <header className="w-full flex justify-center pt-6 pb-4">
+      <div className="max-w-3xl w-full rounded-3xl bg-white/80 border border-amber-200 shadow-sm px-4 py-3 flex items-center gap-3 backdrop-blur">
+        {children}
       </div>
+    </header>
+  );
+};
+
+type ChatHeaderBlockProps = {
+  children?: ReactNode;
+  className?: string;
+};
+
+export const ChatHeaderBlock = ({
+  children,
+  className = "",
+}: ChatHeaderBlockProps) => {
+  return (
+    <div className={`flex flex-1 min-w-0 items-center ${className}`}>
+      {children}
     </div>
   );
-}
-
+};
